@@ -18,10 +18,11 @@ class KickCommand(commands.Cog):
         )
         if member.id == inter.author.id:
           await inter.response.send_message("Вы не можете самого себя кикнуть.")
-        else:
-          await inter.response.send_message(embed=embed)
-          await member.kick(reason=reason)
-
+          return
+        if inter.author.top_role <= member.top_role:
+          await inter.response.send_message("Роль человека выше чем у вас!")
+        await inter.response.send_message(embed=embed)
+        await member.kick(reason=reason)
 
 def setup(bot: commands.Bot):
   bot.add_cog(KickCommand(bot))

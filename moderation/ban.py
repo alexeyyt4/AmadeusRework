@@ -17,10 +17,13 @@ class BanCommand(commands.Cog):
             timestamp=datetime.datetime.now()
         )
         if member.id == inter.author.id:
-         await inter.response.send_message("Вы не можете забанить самого себя.")
-        else:
-          await inter.response.send_message(embed=embed)
-          await member.ban(reason=reason)
+            await inter.response.send_message("Вы не можете забанить самого себя.")
+            return
+        if inter.author.top_role <= member.top_role:
+            await inter.response.send_message("Вы не можете забанить человека с ролью выше.")
+            return
+        await inter.response.send_message(embed=embed)
+        await member.ban(reason=reason)
 
 
 def setup(bot: commands.Bot):
