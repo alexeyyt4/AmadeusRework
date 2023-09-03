@@ -10,10 +10,6 @@ class ClearCog(commands.Cog):
     @commands.slash_command()
     @commands.has_permissions(manage_messages=True)
     async def clear(self, inter: disnake.ApplicationCommandInteraction, amount: int):
-        def is_me(message):
-            return message.author == disnake.user
-
-        await inter.response.defer()
         transcript = await chat_exporter.export(
         inter.channel,
         limit=amount + 1,
@@ -29,7 +25,8 @@ class ClearCog(commands.Cog):
             io.BytesIO(transcript.encode()),
             filename=f"transcript-{inter.channel.name}.html",
         )
-        await inter.channel.purge(limit=amount + 1, check=is_me)
+        await inter.channel.purge(limit=amount + 1)
+        await inter.response.defer()
         await inter.edit_original_response(f"Чат был почищен на {amount}", file=transcript_file)
 
 def setup(bot: commands.Bot):
