@@ -5,17 +5,27 @@ import aiosqlite
 class UnWarnCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.db_file = "warnings.db"  # Имя файла базы данных SQLite
+        
+    def get_db_name(self, guild_id):
+         return f"{guild_id}_warn.db"
 
     @commands.slash_command()
     async def unwarn(self, ctx, member: disnake.Member, warn_id: int):
+            guild_id = ctx.guild.id
+            db_file = self.get_db_name(guild_id)
         # Проверяем, что роль модератора выше роли участника, у которого снимаем предупреждение
             if ctx.author.top_role <= member.top_role:
                 await ctx.send("Вы не можете снимать предупреждения у участников с ролью, выше или равной вашей!")
                 return
 
             # Открываем базу данных SQLite
-            async with aiosqlite.connect(self.db_file) as db:
+            async with aiosqlite.connect(db_file) as db:
+                await db.execute('''CREATE TABLE IF NOT EXISTS warnings (
+                                    user_id INTEGER,
+                                    mod_id INTEGER,
+                                    reason TEXT
+                                )''')
+                await db.commit()
                 # Проверяем, что предупреждение существует для указанного участника
                 cursor = await db.execute("SELECT mod_id, reason FROM warnings WHERE user_id = ? AND rowid = ?",
                                       (member.id, warn_id))

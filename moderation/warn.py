@@ -5,10 +5,14 @@ import aiosqlite
 class WarnCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.db_file = "warnings.db"  # Имя файла базы данных SQLite
+    
+    def get_db_name(self, guild_id):
+         return f"{guild_id}_warn.db"
 
     @commands.slash_command()
     async def warn(self, ctx, member: disnake.Member, *, reason: str):
+        guild_id = ctx.guild.id
+        db_file = self.get_db_name(guild_id)
         # Проверяем, что член не является самим собой
         if member == ctx.author:
             await ctx.send("Вы не можете предупреждать сами себя!")
@@ -20,7 +24,7 @@ class WarnCog(commands.Cog):
             return
 
         # Открываем или создаем базу данных SQLite
-        async with aiosqlite.connect(self.db_file) as db:
+        async with aiosqlite.connect(db_file) as db:
             # Создаем таблицу предупреждений, если она еще не существует
             await db.execute('''CREATE TABLE IF NOT EXISTS warnings (
                                     user_id INTEGER,

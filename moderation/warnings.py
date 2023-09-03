@@ -5,12 +5,22 @@ import aiosqlite
 class WarningCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.db_file = "warnings.db"  # Имя файла базы данных SQLite
+        
+    def get_db_name(self, guild_id):
+        return f"{guild_id}_warn.db"
 
     @commands.slash_command()
     async def warnings(self, ctx, member: disnake.Member):
+            guild_id = ctx.guild.id
+            db_file = self.get_db_name(guild_id)
         # Открываем базу данных SQLite
-            async with aiosqlite.connect(self.db_file) as db:
+            async with aiosqlite.connect(db_file) as db:
+                await db.execute('''CREATE TABLE IF NOT EXISTS warnings (
+                                    user_id INTEGER,
+                                    mod_id INTEGER,
+                                    reason TEXT
+                                )''')
+                await db.commit()
                 # Извлекаем предупреждения для указанного участника
                 cursor = await db.execute("SELECT rowid, mod_id, reason FROM warnings WHERE user_id = ?", (member.id,))
                 warnings = await cursor.fetchall()
