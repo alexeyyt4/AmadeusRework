@@ -7,7 +7,7 @@ class BanCommand(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
 
-    @commands.slash_command()
+    @commands.slash_command(description="Бан - блокировка доступа к дискорд серверу")
     @commands.has_permissions(ban_members=True)
     async def ban(self, inter: disnake.ApplicationCommandInteraction, member: disnake.User, reason: str):
         """Забанить пользователя."""

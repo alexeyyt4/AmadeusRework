@@ -7,7 +7,7 @@ class KickCommand(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
 
-    @commands.slash_command()
+    @commands.slash_command(description="Кик - выкидывание человека из сервера, с возможностью возврата")
     @commands.has_permissions(ban_members=True)
     async def kick(self, inter: disnake.ApplicationCommandInteraction, member: disnake.Member, reason: str):
         """Кикнуть пользователя."""

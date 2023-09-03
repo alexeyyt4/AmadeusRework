@@ -12,7 +12,7 @@ class WarnCog(commands.Cog):
             os.makedirs("databases")
         return f"databases/{guild_id}_warn.db"
 
-    @commands.slash_command()
+    @commands.slash_command(description="Варн - выдача предупреждение участнику.")
     async def warn(self, ctx, member: disnake.Member, *, reason: str):
         guild_id = ctx.guild.id
         db_file = self.get_db_name(guild_id)

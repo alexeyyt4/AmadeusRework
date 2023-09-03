@@ -12,7 +12,7 @@ class UnWarnCog(commands.Cog):
             os.makedirs("databases")
         return f"databases/{guild_id}_warn.db"
 
-    @commands.slash_command()
+    @commands.slash_command(description="Анварн - снятие предупреждения участнику.")
     async def unwarn(self, ctx, member: disnake.Member, warn_id: int):
             guild_id = ctx.guild.id
             db_file = self.get_db_name(guild_id)
