@@ -1,13 +1,16 @@
 import disnake
 from disnake.ext import commands
 import aiosqlite
+import os
 
 class WarningCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         
     def get_db_name(self, guild_id):
-        return f"{guild_id}_warn.db"
+        if not os.path.exists("databases"):
+            os.makedirs("databases")
+        return f"databases/{guild_id}_warn.db"
 
     @commands.slash_command()
     async def warnings(self, ctx, member: disnake.Member):
