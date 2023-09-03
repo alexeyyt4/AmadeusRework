@@ -12,7 +12,7 @@ class WarningCog(commands.Cog):
         time = datatime.datatime.now() + datatime.datatime.delta(minutes=int(time))
         await member.timeout(reason=reason, until=time)
         embed = disnake.Embed(
-            title=f"Был замучен {member.mention}"
+            title=f"Был замучен {member.mention}",
             description=f"{inter.author.mention} замутил данного человека до {time}, за {reason}",
             timestamp=datatime.datatime.now(),
         )
