@@ -9,7 +9,7 @@ class BanCommand(commands.Cog):
 
     @commands.slash_command()
     @commands.has_permissions(ban_members=True)
-    async def ban(self, inter: disnake.ApplicationCommandInteraction, member: disnake.Member, reason: str):
+    async def ban(self, inter: disnake.ApplicationCommandInteraction, member: disnake.User, reason: str):
         """Забанить пользователя."""
         embed = disnake.Embed(
             title="Пользователь успешно забанен!",
