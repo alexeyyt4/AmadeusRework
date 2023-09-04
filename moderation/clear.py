@@ -7,7 +7,7 @@ class ClearCog(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
 
-    @commands.slash_command()
+    @commands.slash_command(description="Очистка чата с сохранением чата в .html файле")
     @commands.has_permissions(manage_messages=True)
     async def clear(self, inter: disnake.ApplicationCommandInteraction, amount: int):
         transcript = await chat_exporter.export(
