@@ -15,5 +15,6 @@ bot.load_extension("moderation.unwarn")
 bot.load_extension("moderation.warnings")
 bot.load_extension("moderation.clear")
 bot.load_extension("moderation.mute")
+bot.load_extension("fun.roll")
 
 bot.run("MTA3NjYwMTM3MjE4NDY4MjU5OA.GVn0Je.LWXjBOrfQjPx25Xu4FSyEabedFAGkbaB-cLY3w")
