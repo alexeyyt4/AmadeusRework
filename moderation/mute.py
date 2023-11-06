@@ -8,6 +8,7 @@ class MuteCog(commands.Cog):
         self.bot = bot
 
     @commands.slash_command(description="Мут - временная блокировка чата в минутах (используеться timeout дискрода)")
+    @commands.has_permissions(manage_messages=True)
     async def mute(self, inter: disnake.ApplicationCommandInteraction, member: disnake.Member, time: str, reason: str):
         time = datetime.datetime.now() + datetime.timedelta(minutes=int(time))
         await member.timeout(reason=reason, until=time)

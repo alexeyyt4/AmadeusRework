@@ -13,6 +13,7 @@ class WarningCog(commands.Cog):
         return f"databases/{guild_id}_warn.db"
 
     @commands.slash_command(description="Просмотр варнов - лист всех предупреждений в текущем дискрод сервере")
+    @commands.has_permissions(manage_messages=True)
     async def warnings(self, ctx, member: disnake.Member):
             guild_id = ctx.guild.id
             db_file = self.get_db_name(guild_id)

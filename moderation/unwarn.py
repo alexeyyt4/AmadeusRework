@@ -13,6 +13,7 @@ class UnWarnCog(commands.Cog):
         return f"databases/{guild_id}_warn.db"
 
     @commands.slash_command(description="Анварн - снятие предупреждения участнику.")
+    @commands.has_permissions(manage_messages=True)
     async def unwarn(self, ctx, member: disnake.Member, warn_id: int):
             guild_id = ctx.guild.id
             db_file = self.get_db_name(guild_id)
