@@ -1,6 +1,7 @@
 import disnake
 from disnake.ext import commands
 import os
+import config
 
 bot = commands.Bot(help_command=None, intents=disnake.Intents.all())
 @bot.event
@@ -20,4 +21,4 @@ bot.load_extension("info.server")
 bot.load_extension("info.user")
 bot.load_extension("info.help")
 
-bot.run("MTA3NjYwMTM3MjE4NDY4MjU5OA.GDneEt.PU4Oufjg4WUdGJv4pRaqODfKLcnwcdTRcPRwn4")
+bot.run(config.TOKEN)
