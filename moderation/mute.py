@@ -10,7 +10,8 @@ class MuteCog(commands.Cog):
     @commands.slash_command(description="Мут - временная блокировка чата в минутах (используеться timeout дискрода)")
     @commands.has_permissions(manage_messages=True)
     async def mute(self, inter: disnake.ApplicationCommandInteraction, member: disnake.Member, time: str, reason: str):
-        time = datetime.datetime.now() + datetime.timedelta(minutes=int(time))
+        if member == None:
+            await inter.send("Данного участника нету на сервере!")
         await member.timeout(reason=reason, until=time)
         embed = disnake.Embed(
             title=f"Был замучен {member.global_name}",

@@ -18,6 +18,8 @@ class WarningCog(commands.Cog):
             guild_id = ctx.guild.id
             db_file = self.get_db_name(guild_id)
         # Открываем базу данных SQLite
+            if member == None:
+                await ctx.send("Данного участника нету на сервере!")
             async with aiosqlite.connect(db_file) as db:
                 await db.execute('''CREATE TABLE IF NOT EXISTS warnings (
                                     user_id INTEGER,

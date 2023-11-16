@@ -8,6 +8,8 @@ class UserInfoCog(commands.Cog):
 
     @commands.slash_command(name="userinfo", description="Дает информацию о участнике.")
     async def serverinfo(self, ctx, member: disnake.Member):
+        if member == None:
+            await ctx.send("Данного участника нету на сервере!")
         embed = disnake.Embed(
             title="Информация о сервере:",
             description=f"**Имя пользователя: {member.name}\nID: {member.id}\nДата создания профиля: ||{member.created_at}||\nДата присоединения к серверу: ||{member.joined_at}||**",

@@ -15,6 +15,8 @@ class WarnCog(commands.Cog):
     @commands.slash_command(description="Варн - выдача предупреждение участнику.")
     @commands.has_permissions(manage_messages=True)
     async def warn(self, ctx, member: disnake.Member, *, reason: str):
+        if member == None:
+            await ctx.send("Данного участника нету на сервере!")
         guild_id = ctx.guild.id
         db_file = self.get_db_name(guild_id)
         # Проверяем, что член не является самим собой
