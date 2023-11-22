@@ -2,7 +2,7 @@ import disnake
 from disnake.ext import commands
 import aiosqlite
 import os
-
+import datetime
 class WarnCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -15,6 +15,7 @@ class WarnCog(commands.Cog):
     @commands.slash_command(description="Варн - выдача предупреждение участнику.")
     @commands.has_permissions(manage_messages=True)
     async def warn(self, ctx, member: disnake.Member, *, reason: str):
+        print(f"Делаю варн в {datetime.datetime.now}, на {ctx.guild.id}")
         if member == None:
             await ctx.send("Данного участника нету на сервере!")
         guild_id = ctx.guild.id
@@ -43,7 +44,7 @@ class WarnCog(commands.Cog):
             await db.execute("INSERT INTO warnings (user_id, mod_id, reason) VALUES (?, ?, ?)",
                              (member.id, ctx.author.id, reason))
             await db.commit()
-
+        print(f"Сделал варн в {datetime.datetime.now}, на {ctx.guild.id}")
         await ctx.send(f"{member.mention} был предупрежден за: {reason}")
 def setup(bot):
     bot.add_cog(WarnCog(bot))

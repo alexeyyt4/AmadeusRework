@@ -2,6 +2,7 @@ import disnake
 from disnake.ext import commands
 import aiosqlite
 import os
+import datetime
 
 class WarningCog(commands.Cog):
     def __init__(self, bot):
@@ -15,6 +16,7 @@ class WarningCog(commands.Cog):
     @commands.slash_command(description="Просмотр варнов - лист всех предупреждений в текущем дискрод сервере")
     @commands.has_permissions(manage_messages=True)
     async def warnings(self, ctx, member: disnake.Member):
+            print(f"Делаю варнинги в {datetime.datetime.now}, на {ctx.guild.id}")
             guild_id = ctx.guild.id
             db_file = self.get_db_name(guild_id)
         # Открываем базу данных SQLite
@@ -42,6 +44,7 @@ class WarningCog(commands.Cog):
                 await ctx.send(embed=embed)
             else:
                 await ctx.send(f"{member.display_name} не имеет предупреждений.")
+            print(f"Сделал варнинги в {datetime.datetime.now}, на {ctx.guild.id}")
 
 def setup(bot):
     bot.add_cog(WarningCog(bot))

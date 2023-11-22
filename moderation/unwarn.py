@@ -2,6 +2,7 @@ import disnake
 from disnake.ext import commands
 import aiosqlite
 import os
+import datetime
 
 class UnWarnCog(commands.Cog):
     def __init__(self, bot):
@@ -15,6 +16,7 @@ class UnWarnCog(commands.Cog):
     @commands.slash_command(description="Анварн - снятие предупреждения участнику.")
     @commands.has_permissions(manage_messages=True)
     async def unwarn(self, ctx, member: disnake.Member, warn_id: int):
+            print(f"Делаю анварн в {datetime.datetime.now}, на {ctx.guild.id}")
             if member == None:
                 await ctx.send("Данного участника нету на сервере!")
             guild_id = ctx.guild.id
@@ -48,6 +50,7 @@ class UnWarnCog(commands.Cog):
                     await ctx.send(f"Предупреждение для {member.mention} снято модератором {moderator_name}.")
                 else:
                     await ctx.send(f"Предупреждение с ID {warn_id} не найдено для {member.mention}.")
+                print(f"Сделал анварн в {datetime.datetime.now}, на {ctx.guild.id}")
 
 def setup(bot):
     bot.add_cog(UnWarnCog(bot))
