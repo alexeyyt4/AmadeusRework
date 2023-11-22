@@ -8,10 +8,10 @@ class KickCommand(commands.Cog):
         self.bot = bot
 
     @commands.slash_command(description="Кик - выкидывание человека из сервера, с возможностью возврата")
-    @commands.has_permissions(ban_members=True)
+    @commands.has_permissions(kick_members=True)
     async def kick(self, inter: disnake.ApplicationCommandInteraction, member: disnake.Member, reason: str):
         if member == None:
-            await inter.send("Данного участника нету на сервере")
+            await inter.send("Данного участника нету на сервере!")
         """Кикнуть пользователя."""
         embed = disnake.Embed(
             title="Пользователь успешно кикнут!",
