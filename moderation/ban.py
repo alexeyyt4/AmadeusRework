@@ -9,7 +9,7 @@ class BanCommand(commands.Cog):
 
     @commands.slash_command(description="Бан - блокировка доступа к дискорд серверу")
     @commands.has_permissions(ban_members=True)
-    async def ban(self, inter: disnake.ApplicationCommandInteraction, member: disnake.User, reason: str, ctx):
+    async def ban(self, ctx, inter: disnake.ApplicationCommandInteraction, member: disnake.User, reason: str):
         print(f"Делаю бан в {datetime.datetime.now}, на {ctx.guild.id}")
         """Забанить пользователя."""
         embed = disnake.Embed(

@@ -9,7 +9,7 @@ class MuteCog(commands.Cog):
 
     @commands.slash_command(description="Мут - временная блокировка чата в минутах (используеться timeout дискрода)")
     @commands.has_permissions(manage_messages=True)
-    async def mute(self, inter: disnake.ApplicationCommandInteraction, member: disnake.Member, time: str, reason: str, ctx):
+    async def mute(self, ctx, inter: disnake.ApplicationCommandInteraction, member: disnake.Member, time: str, reason: str):
         print(f"Делаю мут в {datetime.datetime.now}, на {ctx.guild.id}")
         if member == None:
             await inter.send("Данного участника нету на сервере!")

@@ -9,7 +9,7 @@ class KickCommand(commands.Cog):
 
     @commands.slash_command(description="Кик - выкидывание человека из сервера, с возможностью возврата")
     @commands.has_permissions(kick_members=True)
-    async def kick(self, inter: disnake.ApplicationCommandInteraction, member: disnake.Member, reason: str, ctx):
+    async def kick(self, ctx, inter: disnake.ApplicationCommandInteraction, member: disnake.Member, reason: str):
         print(f"Делаю кик в {datetime.datetime.now}, на {ctx.guild.id}")
         if member == None:
             await inter.send("Данного участника нету на сервере!")
