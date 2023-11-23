@@ -9,8 +9,8 @@ class KickCommand(commands.Cog):
 
     @commands.slash_command(description="Кик - выкидывание человека из сервера, с возможностью возврата")
     @commands.has_permissions(kick_members=True)
-    async def kick(self, ctx, inter: disnake.ApplicationCommandInteraction, member: disnake.Member, reason: str):
-        print(f"Делаю кик в {datetime.datetime.now}, на {ctx.guild.id}")
+    async def kick(self, inter: disnake.ApplicationCommandInteraction, member: disnake.Member, reason: str):
+        print(f"Делаю кик в {datetime.datetime.now}, на {inter.guild.id}")
         if member == None:
             await inter.send("Данного участника нету на сервере!")
         """Кикнуть пользователя."""
@@ -25,7 +25,7 @@ class KickCommand(commands.Cog):
         if inter.author.top_role <= member.top_role:
           await inter.response.send_message("Роль человека выше чем у вас!")
         await inter.response.send_message(embed=embed)
-        print(f"Сделал кик в {datetime.datetime.now}, на {ctx.guild.id}")
+        print(f"Сделал кик в {datetime.datetime.now}, на {inter.guild.id}")
         await member.kick(reason=reason)
 
 def setup(bot: commands.Bot):

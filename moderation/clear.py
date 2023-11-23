@@ -10,8 +10,8 @@ class ClearCog(commands.Cog):
 
     @commands.slash_command(description="Очистка чата с сохранением чата в .html файле")
     @commands.has_permissions(manage_messages=True)
-    async def clear(self, ctx, inter: disnake.ApplicationCommandInteraction, amount: int):
-        print(f"Делаю чистку в {datetime.datetime.now}, на {ctx.guild.id}")
+    async def clear(self, inter: disnake.ApplicationCommandInteraction, amount: int):
+        print(f"Делаю чистку в {datetime.datetime.now}, на {inter.guild.id}")
         transcript = await chat_exporter.export(
         inter.channel,
         limit=amount + 1,
@@ -29,7 +29,7 @@ class ClearCog(commands.Cog):
         )
         await inter.channel.purge(limit=amount + 1)
         await inter.response.defer()
-        print(f"Сделал чистку в {datetime.datetime.now}, на {ctx.guild.id}")
+        print(f"Сделал чистку в {datetime.datetime.now}, на {inter.guild.id}")
         await inter.edit_original_response(f"Чат был почищен на {amount}", file=transcript_file)
 
 def setup(bot: commands.Bot):
